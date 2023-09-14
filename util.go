@@ -1,9 +1,11 @@
 package twitterscraper
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -19,8 +21,13 @@ var (
 	twURL        = urlParse("https://twitter.com")
 )
 
-func (s *Scraper) newRequest(method string, url string) (*http.Request, error) {
-	req, err := http.NewRequest(method, url, nil)
+func (s *Scraper) newRequest(method string, url string, body []byte) (*http.Request, error) {
+
+	var requestBody io.Reader
+	if body != nil {
+		requestBody = bytes.NewBuffer(body)
+	}
+	req, err := http.NewRequest(method, url, requestBody)
 	if err != nil {
 		return nil, err
 	}

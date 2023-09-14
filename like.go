@@ -45,7 +45,9 @@ func (s *Scraper) Like(tweet_id string, queryId string) (err error) {
 
 	fmt.Println("jsonData:", string(jsonData))
 
-	req, err := s.newRequest("POST", "https://twitter.com/i/api/graphql/lI07N6Otwv1PhnEgXILM7A/FavoriteTweet")
+	req, err := s.newRequest("POST",
+		"https://twitter.com/i/api/graphql/lI07N6Otwv1PhnEgXILM7A/FavoriteTweet",
+		jsonData)
 
 	req.Body = io.NopCloser(bytes.NewBuffer(jsonData))
 

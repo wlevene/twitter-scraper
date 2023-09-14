@@ -97,7 +97,7 @@ func (s *Scraper) getSearchTimeline(query string, maxNbr int, cursor string) (*s
 		maxNbr = 50
 	}
 
-	req, err := s.newRequest("GET", searchURL)
+	req, err := s.newRequest("GET", searchURL, nil)
 	if err != nil {
 		return nil, err
 	}

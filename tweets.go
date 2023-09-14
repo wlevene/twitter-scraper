@@ -31,7 +31,7 @@ func (s *Scraper) FetchTweetsByUserID(userID string, maxTweetsNbr int, cursor st
 		maxTweetsNbr = 200
 	}
 
-	req, err := s.newRequest("GET", "https://twitter.com/i/api/graphql/UGi7tjRPr-d_U3bCPIko5Q/UserTweets")
+	req, err := s.newRequest("GET", "https://twitter.com/i/api/graphql/UGi7tjRPr-d_U3bCPIko5Q/UserTweets", nil)
 	if err != nil {
 		return nil, "", err
 	}
@@ -93,7 +93,7 @@ func (s *Scraper) FetchTweetsByUserIDLegacy(userID string, maxTweetsNbr int, cur
 		maxTweetsNbr = 200
 	}
 
-	req, err := s.newRequest("GET", "https://api.twitter.com/2/timeline/profile/"+userID+".json")
+	req, err := s.newRequest("GET", "https://api.twitter.com/2/timeline/profile/"+userID+".json", nil)
 	if err != nil {
 		return nil, "", err
 	}
@@ -119,7 +119,7 @@ func (s *Scraper) FetchTweetsByUserIDLegacy(userID string, maxTweetsNbr int, cur
 // GetTweet get a single tweet by ID.
 func (s *Scraper) GetTweet(id string) (*Tweet, error) {
 	if s.isOpenAccount {
-		req, err := s.newRequest("GET", "https://api.twitter.com/2/timeline/conversation/"+id+".json")
+		req, err := s.newRequest("GET", "https://api.twitter.com/2/timeline/conversation/"+id+".json", nil)
 		if err != nil {
 			return nil, err
 		}
@@ -137,7 +137,7 @@ func (s *Scraper) GetTweet(id string) (*Tweet, error) {
 			}
 		}
 	} else {
-		req, err := s.newRequest("GET", "https://twitter.com/i/api/graphql/VWFGPVAGkZMGRKGe3GFFnA/TweetDetail")
+		req, err := s.newRequest("GET", "https://twitter.com/i/api/graphql/VWFGPVAGkZMGRKGe3GFFnA/TweetDetail", nil)
 		if err != nil {
 			return nil, err
 		}
