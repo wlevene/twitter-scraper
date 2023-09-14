@@ -1,10 +1,8 @@
 package twitterscraper
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
-	"io"
 )
 
 type (
@@ -48,8 +46,6 @@ func (s *Scraper) Like(tweet_id string, queryId string) (err error) {
 	req, err := s.newRequest("POST",
 		"https://twitter.com/i/api/graphql/lI07N6Otwv1PhnEgXILM7A/FavoriteTweet",
 		jsonData)
-
-	req.Body = io.NopCloser(bytes.NewBuffer(jsonData))
 
 	fmt.Println("req:", req)
 
