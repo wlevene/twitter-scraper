@@ -22,20 +22,19 @@ func (s *Scraper) Like(tweet_id string, queryId string) (err error) {
 	if tweet_id == "" {
 		return
 	}
+	params := make(map[string]interface{})
+	params["queryId"] = queryId
+	variables := make(map[string]string)
+	variables["tweet_id"] = tweet_id
+	params["variables"] = variables
 
-	likebody := LikeBody{
-		Variables: struct {
-			TweetId string `json:"tweet_id"`
-		}{
-			TweetId: tweet_id, // You should have the tweet_id variable defined somewhere
-		},
-		QueryId: queryId,
-	}
-
-	jsonData, err := json.Marshal(likebody)
+	jsonData, err := json.Marshal(params)
 	if err != nil {
+		fmt.Println("Error:", err)
 		return
 	}
+
+	fmt.Println("jsonData:", string(jsonData))
 
 	req, err := s.newRequest("POST", "https://twitter.com/i/api/graphql/lI07N6Otwv1PhnEgXILM7A/FavoriteTweet")
 
