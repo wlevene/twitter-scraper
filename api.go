@@ -40,9 +40,11 @@ func (s *Scraper) RequestAPI(req *http.Request, target interface{}) error {
 	}
 
 	for _, cookie := range s.client.Jar.Cookies(req.URL) {
+
+		fmt.Println("### cookie:", cookie)
 		if cookie.Name == "ct0" {
 			req.Header.Set("X-CSRF-Token", cookie.Value)
-			break
+			// break
 		}
 	}
 
