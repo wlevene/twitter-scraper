@@ -41,6 +41,8 @@ func (s *Scraper) Like(tweet_id string, queryId string) (err error) {
 
 	req.Body = io.NopCloser(bytes.NewBuffer(jsonData))
 
+	fmt.Println("req:", req)
+
 	if err != nil {
 		return err
 	}

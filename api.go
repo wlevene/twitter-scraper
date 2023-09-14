@@ -46,6 +46,8 @@ func (s *Scraper) RequestAPI(req *http.Request, target interface{}) error {
 		}
 	}
 
+	fmt.Println("### req:", req)
+
 	resp, err := s.client.Do(req)
 	if err != nil {
 		return err
@@ -56,6 +58,8 @@ func (s *Scraper) RequestAPI(req *http.Request, target interface{}) error {
 	if err != nil {
 		return err
 	}
+
+	fmt.Println("content:", content)
 
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("response status %s: %s", resp.Status, content)
