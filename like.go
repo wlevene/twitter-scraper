@@ -22,13 +22,22 @@ func (s *Scraper) Like(tweet_id string, queryId string) (err error) {
 	if tweet_id == "" {
 		return
 	}
-	params := make(map[string]interface{})
-	params["queryId"] = queryId
-	variables := make(map[string]string)
-	variables["tweet_id"] = tweet_id
-	params["variables"] = variables
 
-	jsonData, err := json.Marshal(params)
+	requestBody := struct {
+		Variables struct {
+			TweetID string `json:"tweet_id"`
+		} `json:"variables"`
+		QueryID string `json:"queryId"`
+	}{
+		Variables: struct {
+			TweetID string `json:"tweet_id"`
+		}{
+			TweetID: tweet_id,
+		},
+		QueryID: queryId,
+	}
+
+	jsonData, err := json.Marshal(requestBody)
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
@@ -41,6 +50,8 @@ func (s *Scraper) Like(tweet_id string, queryId string) (err error) {
 	req.Body = io.NopCloser(bytes.NewBuffer(jsonData))
 
 	fmt.Println("req:", req)
+
+	fmt.Println("req.body:", req.Body)
 
 	if err != nil {
 		return err

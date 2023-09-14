@@ -59,7 +59,7 @@ func (s *Scraper) RequestAPI(req *http.Request, target interface{}) error {
 		return err
 	}
 
-	fmt.Println("content:", string(content))
+	fmt.Println("### content:", string(content))
 
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("response status %s: %s", resp.Status, content)
